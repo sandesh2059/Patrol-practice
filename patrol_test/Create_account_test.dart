@@ -114,4 +114,25 @@ void main() {
     expect(find.text('Minimum 6 characters'), findsOneWidget);
     await $.pumpAndSettle();
   });
+
+  patrolTest('check if password masking is working', ($) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#goToCreateAccount).tap();
+
+    await $(#signupPasswordField).enterText('mySecret123');
+    await $(#confirmPasswordField).enterText('mySecret123');
+
+    EditableText getEditableText(String key) {
+      return $.tester.widget<EditableText>(
+        find.descendant(
+          of: find.byKey(Key(key)),
+          matching: find.byType(EditableText),
+        ),
+      );
+    }
+
+    expect(getEditableText('signupPasswordField').obscureText, isTrue);
+    expect(getEditableText('confirmPasswordField').obscureText, isTrue);
+  });
 }
