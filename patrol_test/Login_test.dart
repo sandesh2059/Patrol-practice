@@ -41,4 +41,14 @@ void main() {
     await $.pumpAndSettle();
     expect(find.text('Password is required'), findsOneWidget);
   });
+
+  patrolTest('validate if password is case sensitive', ($) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#emailField).enterText('test@example.com');
+    await $(#passwordField).enterText('PASSWORD123');
+    await $(#loginButton).tap();
+    await $.pumpAndSettle();
+    expect(find.text('Invalid email or password'), findsOneWidget);
+  });
 }
