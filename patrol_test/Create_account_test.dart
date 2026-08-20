@@ -13,6 +13,20 @@ void main() {
     await $(#confirmPasswordField).enterText('Sandesh@12');
     await $(#acceptTermsCheckbox).tap();
     await $(#createAccountButton).tap();
+    expect(find.text('Account created! You can now log in.'), findsOneWidget);
+    await $.pumpAndSettle();
+  });
+
+  patrolTest('create account without filling fullname field', ($) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#goToCreateAccount).tap();
+    await $(#signupEmailField).enterText('sandeshchy@example.com');
+    await $(#signupPasswordField).enterText('Sandesh@12');
+    await $(#confirmPasswordField).enterText('Sandesh@12');
+    await $(#acceptTermsCheckbox).tap();
+    await $(#createAccountButton).tap();
+    expect(find.text('Name is required'), findsOneWidget);
     await $.pumpAndSettle();
   });
 }
