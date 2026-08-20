@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
 import 'package:patrol/patrol.dart';
 import 'package:patrol_example/main.dart';
 
@@ -97,6 +98,20 @@ void main() {
     await $(#acceptTermsCheckbox).tap();
     await $(#createAccountButton).tap();
     expect(find.text('Enter a valid email'), findsOneWidget);
+    await $.pumpAndSettle();
+  });
+
+  patrolTest('create account with password less than 6 characters', ($) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#goToCreateAccount).tap();
+    await $(#nameField).enterText('sandesh chy');
+    await $(#signupEmailField).enterText('sandeshchy@example.com');
+    await $(#signupPasswordField).enterText('Sande');
+    await $(#confirmPasswordField).enterText('Sande');
+    await $(#acceptTermsCheckbox).tap();
+    await $(#createAccountButton).tap();
+    expect(find.text('Minimum 6 characters'), findsOneWidget);
     await $.pumpAndSettle();
   });
 }
