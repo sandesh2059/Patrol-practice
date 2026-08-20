@@ -13,7 +13,7 @@ import 'package:patrol/src/platform/mobile/patrol_runtime_ports.dart';
 import 'package:test_api/src/backend/invoker.dart';
 
 // START: GENERATED TEST IMPORTS
-import 'login_test.dart' as login_test;
+import 'create_account_test.dart' as create_account_test;
 // END: GENERATED TEST IMPORTS
 
 Future<void> main() async {
@@ -105,7 +105,7 @@ Future<void> main() async {
   });
 
 // START: GENERATED TEST GROUPS
-  group('login_test', login_test.main);
+  group('create_account_test', create_account_test.main);
 // END: GENERATED TEST GROUPS
 
   if (constants.testDiscoveryEnabled) {

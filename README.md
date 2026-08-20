@@ -119,8 +119,8 @@ With a device/emulator already running:
 
 ```bash
 # Run a single test file
-patrol test -t patrol_test/Login_test.dart
-patrol test -t patrol_test/Create_account_test.dart
+patrol test -t patrol_test/login_test.dart
+patrol test -t patrol_test/create_account_test.dart
 
 # Run every test in patrol_test/
 patrol test
