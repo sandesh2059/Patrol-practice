@@ -32,4 +32,13 @@ void main() {
     await $.pumpAndSettle();
     expect(find.text('Email is required'), findsOneWidget);
   });
+
+  patrolTest('Login with empty password field', ($) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#emailField).enterText('test@example.com');
+    await $(#loginButton).tap();
+    await $.pumpAndSettle();
+    expect(find.text('Password is required'), findsOneWidget);
+  });
 }
