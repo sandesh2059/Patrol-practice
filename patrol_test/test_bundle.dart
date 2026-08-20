@@ -13,8 +13,7 @@ import 'package:patrol/src/platform/mobile/patrol_runtime_ports.dart';
 import 'package:test_api/src/backend/invoker.dart';
 
 // START: GENERATED TEST IMPORTS
-import 'example_test.dart' as example_test;
-
+import 'Create_account_test.dart' as Create_account_test;
 // END: GENERATED TEST IMPORTS
 
 Future<void> main() async {
@@ -105,9 +104,9 @@ Future<void> main() async {
     reportGroupStructure(dartTestGroup);
   });
 
-  // START: GENERATED TEST GROUPS
-  group('example_test', example_test.main);
-  // END: GENERATED TEST GROUPS
+// START: GENERATED TEST GROUPS
+  group('Create_account_test', Create_account_test.main);
+// END: GENERATED TEST GROUPS
 
   if (constants.testDiscoveryEnabled) {
     // Returning finishes declaration; `flutter test` then runs the explorer

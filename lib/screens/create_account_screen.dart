@@ -52,7 +52,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     setState(() => _isLoading = true);
     await Future.delayed(const Duration(milliseconds: 600)); // fake network
 
-    UserStore.instance.addUser(
+    await UserStore.instance.addUser(
       AppUser(
         fullName: _nameController.text.trim(),
         email: _emailController.text.trim(),
@@ -94,8 +94,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
-                    if (value == null || value.trim().isEmpty)
+                    if (value == null || value.trim().isEmpty) {
                       return 'Name is required';
+                    }
                     return null;
                   },
                 ),
@@ -110,9 +111,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Email is required';
-                    if (!value.contains('@')) return 'Enter a valid email';
+                    }
+                    if (!value.contains('@')) {
+                      return 'Enter a valid email';
+                    }
                     return null;
                   },
                 ),
@@ -127,9 +131,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Password is required';
-                    if (value.length < 6) return 'Minimum 6 characters';
+                    }
+                    if (value.length < 6) {
+                      return 'Minimum 6 characters';
+                    }
                     return null;
                   },
                 ),

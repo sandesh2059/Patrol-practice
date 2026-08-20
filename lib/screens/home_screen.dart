@@ -16,7 +16,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedTab = 0;
   int _counter = 0;
-  final List<String> _tasks = ['Write Patrol test', 'Review PR', 'Ship release'];
+  final List<String> _tasks = [
+    'Write Patrol test',
+    'Review PR',
+    'Ship release',
+  ];
   final _newTaskController = TextEditingController();
 
   @override
@@ -162,7 +166,8 @@ class _HomeScreenState extends State<HomeScreen> {
             key: const Key('profileButton'),
             icon: const Icon(Icons.person_outline),
             onPressed: () {
-              Navigator.of(context).pushNamed(ProfileScreen.routeName, arguments: user);
+              Navigator.of(context)
+                  .pushNamed(ProfileScreen.routeName, arguments: user);
             },
           ),
           IconButton(

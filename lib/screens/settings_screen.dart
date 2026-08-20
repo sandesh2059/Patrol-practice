@@ -18,7 +18,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String _selectedLanguage = 'English';
   double _fontSize = 14;
 
-  static const _languages = ['English', 'Spanish', 'French', 'German', 'Nepali'];
+  static const _languages = [
+    'English',
+    'Spanish',
+    'French',
+    'German',
+    'Nepali',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +78,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               key: const Key('languageDropdown'),
               value: _selectedLanguage,
               items: _languages
-                  .map((lang) => DropdownMenuItem(value: lang, child: Text(lang)))
+                  .map(
+                    (lang) => DropdownMenuItem(value: lang, child: Text(lang)),
+                  )
                   .toList(),
               onChanged: (value) {
                 if (value != null) setState(() => _selectedLanguage = value);

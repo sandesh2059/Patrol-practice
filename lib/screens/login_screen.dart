@@ -50,10 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
-    Navigator.of(context).pushReplacementNamed(
-      HomeScreen.routeName,
-      arguments: user,
-    );
+    Navigator.of(context)
+        .pushReplacementNamed(HomeScreen.routeName, arguments: user);
   }
 
   @override
@@ -69,7 +67,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Icon(Icons.shield_outlined, size: 64, color: Colors.indigo),
+                  const Icon(
+                    Icons.shield_outlined,
+                    size: 64,
+                    color: Colors.indigo,
+                  ),
                   const SizedBox(height: 12),
                   Text(
                     'Welcome back',
@@ -88,8 +90,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       border: OutlineInputBorder(),
                     ),
                     validator: (value) {
-                      if (value == null || value.isEmpty) return 'Email is required';
-                      if (!value.contains('@')) return 'Enter a valid email';
+                      if (value == null || value.isEmpty) {
+                        return 'Email is required';
+                      }
+                      if (!value.contains('@')) {
+                        return 'Enter a valid email';
+                      }
                       return null;
                     },
                   ),
@@ -104,16 +110,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       border: const OutlineInputBorder(),
                       suffixIcon: IconButton(
                         key: const Key('togglePasswordVisibility'),
-                        icon: Icon(_obscurePassword
-                            ? Icons.visibility_outlined
-                            : Icons.visibility_off_outlined),
-                        onPressed: () =>
-                            setState(() => _obscurePassword = !_obscurePassword),
+                        icon: Icon(
+                          _obscurePassword
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                        ),
+                        onPressed: () => setState(
+                          () => _obscurePassword = !_obscurePassword,
+                        ),
                       ),
                     ),
                     validator: (value) {
-                      if (value == null || value.isEmpty) return 'Password is required';
-                      if (value.length < 6) return 'Minimum 6 characters';
+                      if (value == null || value.isEmpty) {
+                        return 'Password is required';
+                      }
+                      if (value.length < 6) {
+                        return 'Minimum 6 characters';
+                      }
                       return null;
                     },
                   ),
@@ -137,7 +150,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextButton(
                     key: const Key('goToCreateAccount'),
                     onPressed: () {
-                      Navigator.of(context).pushNamed(CreateAccountScreen.routeName);
+                      Navigator.of(context)
+                          .pushNamed(CreateAccountScreen.routeName);
                     },
                     child: const Text("Don't have an account? Create one"),
                   ),
