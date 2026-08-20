@@ -42,4 +42,17 @@ void main() {
     expect(find.text('Email is required'), findsOneWidget);
     await $.pumpAndSettle();
   });
+
+  patrolTest('create account without filling password field', ($) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#goToCreateAccount).tap();
+    await $(#nameField).enterText('sandesh chy');
+    await $(#signupEmailField).enterText('sandeshchy@example.com');
+    await $(#confirmPasswordField).enterText('Sandesh@12');
+    await $(#acceptTermsCheckbox).tap();
+    await $(#createAccountButton).tap();
+    expect(find.text('Password is required'), findsOneWidget);
+    await $.pumpAndSettle();
+  });
 }
