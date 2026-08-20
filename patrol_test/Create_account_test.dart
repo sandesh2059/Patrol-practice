@@ -85,4 +85,18 @@ void main() {
     expect(find.text('You must accept the terms to continue'), findsOneWidget);
     await $.pumpAndSettle();
   });
+
+  patrolTest('create account with invalid email', ($) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#goToCreateAccount).tap();
+    await $(#nameField).enterText('sandesh chy');
+    await $(#signupEmailField).enterText('sandeshchyexample.com');
+    await $(#signupPasswordField).enterText('Sandesh@12');
+    await $(#confirmPasswordField).enterText('Sandesh@12');
+    await $(#acceptTermsCheckbox).tap();
+    await $(#createAccountButton).tap();
+    expect(find.text('Enter a valid email'), findsOneWidget);
+    await $.pumpAndSettle();
+  });
 }
