@@ -55,4 +55,34 @@ void main() {
     expect(find.text('Password is required'), findsOneWidget);
     await $.pumpAndSettle();
   });
+
+  patrolTest('create account without filling confirm password field', (
+    $,
+  ) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#goToCreateAccount).tap();
+    await $(#nameField).enterText('sandesh chy');
+    await $(#signupEmailField).enterText('sandeshchy@example.com');
+    await $(#signupPasswordField).enterText('Sandesh@12');
+    await $(#acceptTermsCheckbox).tap();
+    await $(#createAccountButton).tap();
+    expect(find.text('Passwords do not match'), findsOneWidget);
+    await $.pumpAndSettle();
+  });
+
+  patrolTest('create account without accepting terms and conditions', (
+    $,
+  ) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#goToCreateAccount).tap();
+    await $(#nameField).enterText('sandesh chy');
+    await $(#signupEmailField).enterText('sandeshchy@example.com');
+    await $(#signupPasswordField).enterText('Sandesh@12');
+    await $(#confirmPasswordField).enterText('Sandesh@12');
+    await $(#createAccountButton).tap();
+    expect(find.text('You must accept the terms to continue'), findsOneWidget);
+    await $.pumpAndSettle();
+  });
 }
