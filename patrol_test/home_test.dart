@@ -104,4 +104,42 @@ void main() {
     expect(find.text('write new task field test2'), findsOneWidget);
     expect(find.text('write new task field test3'), findsOneWidget);
   });
+
+  patrolTest('delete single task', ($) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#emailField).enterText('test@example.com');
+    await $(#passwordField).enterText('password123');
+    await $(#loginButton).tap();
+    await $.pumpAndSettle();
+    await $(#counterValue).waitUntilVisible();
+    await $(#tasksTabButton).tap();
+    await $(#newTaskField).waitUntilVisible();
+    await $(#newTaskField).enterText('write new task field test1');
+    await $(#addTaskButton).tap();
+    await $(#newTaskField).waitUntilVisible();
+    await $(#newTaskField).enterText('write new task field test2');
+    await $(#addTaskButton).tap();
+    await $.pumpAndSettle();
+    await $(#newTaskField).waitUntilVisible();
+    await $(#newTaskField).enterText('write new task field test3');
+    await $(#addTaskButton).tap();
+    await $.pumpAndSettle();
+    final targetTile = find.ancestor(
+      of: find.text('write new task field test1'),
+      matching: find.byType(ListTile),
+    );
+
+    final deleteButtonInsideTile = find.descendant(
+      of: targetTile,
+      matching: find.byIcon(Icons.delete_outline),
+    );
+
+    await $.tester.tap(deleteButtonInsideTile);
+
+    await $.pumpAndSettle();
+    expect(find.text('write new task field test1'), findsNothing);
+    expect(find.text('write new task field test2'), findsOneWidget);
+    expect(find.text('write new task field test3'), findsOneWidget);
+  });
 }
