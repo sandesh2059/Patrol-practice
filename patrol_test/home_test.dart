@@ -224,8 +224,37 @@ void main() {
     await $(#editProfileButton).tap();
     await $.pumpAndSettle();
     await $(#profileNameField).enterText('Test Users');
-    await $(#editProfilebutton).tap();
+    await $(#editProfileButton).tap();
     await $.pumpAndSettle();
     expect(find.text('Test Users'), findsOneWidget);
+  });
+
+  patrolTest('dark mode switch reflects on and off state', ($) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+
+    await $(#emailField).enterText('test@example.com');
+    await $(#passwordField).enterText('password123');
+    await $(#loginButton).tap();
+    await $.pumpAndSettle();
+
+    await $(#settingsButton).tap();
+    await $.pumpAndSettle();
+
+    bool isDarkModeOn() {
+      return $.tester
+          .widget<SwitchListTile>(find.byKey(const Key('darkModeSwitch')))
+          .value;
+    }
+
+    expect(isDarkModeOn(), isFalse);
+
+    await $(#darkModeSwitch).tap();
+    await $.pumpAndSettle();
+    expect(isDarkModeOn(), isTrue);
+
+    await $(#darkModeSwitch).tap();
+    await $.pumpAndSettle();
+    expect(isDarkModeOn(), isFalse);
   });
 }
