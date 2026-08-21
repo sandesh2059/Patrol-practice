@@ -51,4 +51,20 @@ void main() {
     await $.pumpAndSettle();
     expect(find.text('Invalid email or password'), findsOneWidget);
   });
+
+  patrolTest('Validate Logout', ($) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#emailField).enterText('test@example.com');
+    await $(#passwordField).enterText('password123');
+    await $(#loginButton).tap();
+    await $.pumpAndSettle();
+    expect(find.text('Patrol Practice'), findsOneWidget);
+    await $(#logoutButton).tap();
+    expect(find.text('Log out'), findsOneWidget);
+    await $(#confirmLogoutButton).tap();
+
+    await $.pumpAndSettle();
+    expect(find.text('Welcome back'), findsOneWidget);
+  });
 }
