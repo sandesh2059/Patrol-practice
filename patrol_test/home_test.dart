@@ -79,4 +79,29 @@ void main() {
     await $.pumpAndSettle();
     expect(find.text('write new task field test'), findsOneWidget);
   });
+
+  patrolTest('add multiple task ', ($) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#emailField).enterText('test@example.com');
+    await $(#passwordField).enterText('password123');
+    await $(#loginButton).tap();
+    await $.pumpAndSettle();
+    await $(#counterValue).waitUntilVisible();
+    await $(#tasksTabButton).tap();
+    await $(#newTaskField).waitUntilVisible();
+    await $(#newTaskField).enterText('write new task field test1');
+    await $(#addTaskButton).tap();
+    await $(#newTaskField).waitUntilVisible();
+    await $(#newTaskField).enterText('write new task field test2');
+    await $(#addTaskButton).tap();
+    await $.pumpAndSettle();
+    await $(#newTaskField).waitUntilVisible();
+    await $(#newTaskField).enterText('write new task field test3');
+    await $(#addTaskButton).tap();
+    await $.pumpAndSettle();
+    expect(find.text('write new task field test1'), findsOneWidget);
+    expect(find.text('write new task field test2'), findsOneWidget);
+    expect(find.text('write new task field test3'), findsOneWidget);
+  });
 }
