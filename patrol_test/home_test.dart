@@ -209,4 +209,23 @@ void main() {
     await $.pumpAndSettle();
     expect(find.text('write new task field test3'), findsNothing);
   });
+
+  patrolTest('edit username', ($) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#emailField).enterText('test@example.com');
+    await $(#passwordField).enterText('password123');
+    await $(#loginButton).tap();
+    await $.pumpAndSettle();
+    await $(#counterValue).waitUntilVisible();
+    await $(#profileButton).tap();
+    await $.pumpAndSettle();
+    expect(find.text('test@example.com'), findsOneWidget);
+    await $(#editProfileButton).tap();
+    await $.pumpAndSettle();
+    await $(#profileNameField).enterText('Test Users');
+    await $(#editProfilebutton).tap();
+    await $.pumpAndSettle();
+    expect(find.text('Test Users'), findsOneWidget);
+  });
 }
