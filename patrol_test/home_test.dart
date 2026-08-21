@@ -13,4 +13,20 @@ void main() {
     await $.pumpAndSettle();
     expect(find.text('Patrol Practice'), findsOneWidget);
   });
+
+  patrolTest('counter increment test', ($) async {
+    await $.pumpWidgetAndSettle(const PatrolPracticeApp());
+    await $(#loginTitle).waitUntilVisible();
+    await $(#emailField).enterText('test@example.com');
+    await $(#passwordField).enterText('password123');
+    await $(#loginButton).tap();
+    await $.pumpAndSettle();
+    await $(#counterValue).waitUntilVisible();
+    expect(find.text('0'), findsOneWidget);
+    await $(#incrementButton).tap();
+    await $(#incrementButton).tap();
+    await $(#incrementButton).tap();
+    await $.pumpAndSettle();
+    expect(find.text('3'), findsOneWidget);
+  });
 }
